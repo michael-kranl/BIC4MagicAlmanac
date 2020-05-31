@@ -15,7 +15,7 @@
                                 <input class="input" type="text" placeholder="Search" v-model="inputSearch">
                             </div>
                         </div>
-                        <div v-if="spells.length > 0 && inputSearch ">
+                        <div v-if="form.spells.length > 0 && inputSearch ">
                             <table class="table is-hoverable">
                                 <thead>
                                 <tr>
@@ -27,7 +27,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="spell in spells " @dblclick="showSpell(spell)">
+                                <tr v-for="spell in form.spells " @dblclick="showSpell(spell)">
                                     <td>{{spell.id}}</td>
                                     <td>{{spell.name}}</td>
                                     <td>{{spell.quote}}</td>
@@ -45,11 +45,15 @@
 </template>
 
 <script>
+    let form = new Form({
+        'spells': [],
+    });
+
     export default {
         props: ['title'],
         data() {
             return {
-                spells: [],
+                form: form,
                 inputSearch: null,
             };
         },
@@ -62,11 +66,9 @@
             search() {
                 axios.post('/search/spell?q='+this.inputSearch)
                 .then(response => {
-                    this.spells = response.data})
+                    this.form.spells = response.data})
                 .catch(error => {
-                    this.statusErr = 1,
-                        console.log(error, error.status)
-                });
+                    console.log(error, error.status)});
             },
             showSpell(spell){
                 window.location.href = '/spell/' + spell.slug;

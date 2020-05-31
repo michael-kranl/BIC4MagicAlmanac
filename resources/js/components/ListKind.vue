@@ -9,7 +9,6 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
-
                         <table class="table is-hoverable">
                             <thead>
                             <tr>
@@ -19,7 +18,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="kind in kinds " @dblclick="showKind(kind)">
+                            <tr v-for="kind in form.kinds " @dblclick="showKind(kind)">
                                 <td>{{kind.id}}</td>
                                 <td>{{kind.name}}</td>
                                 <td>{{kind.description}}</td>
@@ -34,11 +33,15 @@
 </template>
 
 <script>
+    let form = new Form({
+        'kinds': [],
+    });
+
     export default {
         props: ['title'],
         data() {
             return {
-                kinds: []
+                form: form,
             }
         },
         methods: {
@@ -49,7 +52,7 @@
         created() {
             axios.get('/list/kind')
             .then(response => {
-                this.kinds = response.data})
+                this.form.kinds = response.data})
             .catch(error =>
                 {console.log(error.data, error.status)});
         }

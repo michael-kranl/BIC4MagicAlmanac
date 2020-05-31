@@ -9,35 +9,35 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
-                        <div v-if="kind" >
+                        <div v-if="form.kind" >
                             <div class="field">
                                 <label class="label">Slug</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="kind.slug" disabled>
+                                    <input class="input" type="text" v-model="form.kind.slug" disabled>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Name</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="kind.name" disabled>
+                                    <input class="input" type="text" v-model="form.kind.name" disabled>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Description</label>
                                 <div class="control">
-                                    <textarea class="textarea" v-model="kind.description" disabled />
+                                    <textarea class="textarea" v-model="form.kind.description" disabled />
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <label class="label-small">Updated am {{kind.updated_at}}</label>
+                                    <label class="label-small">Updated am {{form.kind.updated_at}}</label>
                                 </div>
                             </div>
                             <div class="control">
                                 <input type="submit" value="Cancel" @click="cancelKind" class="button is-dark is-rounded">
                                 <input type="submit" value="Edit" @click="linkToEdit" class="button is-success is-rounded">
                                 <div class="is-pulled-right">
-                                    <input type="submit" value="Delete" @click="deleteKind(kind)" class="button is-dark">
+                                    <input type="submit" value="Delete" @click="deleteKind(form.kind)" class="button is-dark">
                                 </div>
                             </div>
                         </div>
@@ -49,11 +49,15 @@
 </template>
 
 <script>
+    let form = new Form({
+        'kind': null,
+    });
+
     export default {
         props: ['title'],
         data() {
             return {
-                kind: null
+                form: form,
             }
         },
         methods : {
@@ -65,7 +69,7 @@
             },
             deleteKind(kind){
                 if (confirm("Do you really want to delete the element!")) {
-                    axios.delete(`http://127.0.0.1:8000/kind/${kind.slug}`)
+                    axios.delete('/kind/' + kind.slug)
                         .then(response => {
                             console.log(response);
                             window.location.href = '/kind';
@@ -83,7 +87,7 @@
                 .then(response => {
                     for (let idx = 0; idx < response.data.length; idx++) {
                         if (kindElement == response.data[idx].slug){
-                            this.kind = response.data[idx];
+                            this.form.kind = response.data[idx];
                         }
                     }
                 })

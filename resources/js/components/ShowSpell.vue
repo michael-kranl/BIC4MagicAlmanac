@@ -9,47 +9,47 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
-                        <div v-if="spell" >
+                        <div v-if="form.spell" >
                             <div class="field">
                                 <label class="label">Slug</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="spell.slug" disabled>
+                                    <input class="input" type="text" v-model="form.spell.slug" disabled>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Name</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="spell.name" disabled>
+                                    <input class="input" type="text" v-model="form.spell.name" disabled>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Quote</label>
                                 <div class="control">
-                                    <textarea class="textarea" v-model="spell.quote" disabled />
+                                    <textarea class="textarea" v-model="form.spell.quote" disabled />
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Description</label>
                                 <div class="control">
-                                    <textarea class="textarea" v-model="spell.description" disabled />
+                                    <textarea class="textarea" v-model="form.spell.description" disabled />
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Kind_ID</label>
                                 <div class="control">
-                                    <input class="input" type="number" v-model="spell.kind_id" disabled>
+                                    <input class="input" type="number" v-model="form.spell.kind_id" disabled>
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <label class="label-small">Updated am {{spell.updated_at}}</label>
+                                    <label class="label-small">Updated am {{form.spell.updated_at}}</label>
                                 </div>
                             </div>
                             <div class="control">
                                 <input type="submit" value="Cancel" @click="cancelSpell" class="button is-dark is-rounded">
                                 <input type="submit" value="Edit" @click="linkToEdit" class="button is-success is-rounded">
                                 <div class="is-pulled-right">
-                                    <input type="submit" value="Delete" @click="deleteSpell(spell)" class="button is-dark">
+                                    <input type="submit" value="Delete" @click="deleteSpell(form.spell)" class="button is-dark">
                                 </div>
                             </div>
                         </div>
@@ -61,11 +61,15 @@
 </template>
 
 <script>
+    let form = new Form({
+        'spell': null,
+    });
+
     export default {
         props: ['title'],
         data() {
             return {
-                spell: null
+                form: form,
             }
         },
         methods : {
@@ -77,7 +81,7 @@
             },
             deleteSpell(spell){
                 if (confirm("Do you really want to delete the element!")) {
-                    axios.delete(`/spell/${spell.slug}`)
+                    axios.delete('/spell/' + spell.slug)
                         .then(response => {
                             console.log(response);
                             window.location.href = '/spell';
@@ -95,7 +99,7 @@
                 .then(response => {
                     for (let idx = 0; idx < response.data.length; idx++) {
                         if (spellElement == response.data[idx].slug){
-                            this.spell = response.data[idx];
+                            this.form.spell = response.data[idx];
                         }
                     }
                 })

@@ -20,7 +20,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="spell in spells " @dblclick="showSpell(spell)">
+                            <tr v-for="spell in form.spells " @dblclick="showSpell(spell)">
                                 <td>{{spell.id}}</td>
                                 <td>{{spell.name}}</td>
                                 <td>{{spell.quote}}</td>
@@ -37,11 +37,15 @@
 </template>
 
 <script>
+    let form = new Form({
+        'spells': []
+    });
+
     export default {
         props: ['title'],
         data() {
             return {
-                spells: []
+                form: form,
             }
         },
         methods: {
@@ -52,7 +56,7 @@
         created() {
             axios.get('/list/spell')
             .then(response => {
-                this.spells = response.data})
+                this.form.spells = response.data})
             .catch(error =>
             {console.log(error.data, error.status)});
         }
