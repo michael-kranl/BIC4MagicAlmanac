@@ -4,7 +4,7 @@
             <div class="card column is-half is-offset-one-quarter">
                 <header class="card-header">
                     <h1 class="card-header-title">
-                        Create Spell
+                        {{ title }}
                     </h1>
                 </header>
                 <div class="card-content">
@@ -40,7 +40,14 @@
                         <div v-if="statusErr === 1" >
                             <article class="message is-danger">
                                 <div class="message-body">
-                                    This name is already assigned or/and no description has been added. <strong>Please try again!!!</strong>
+                                    This name is already assigned or/and no quote/description/kind_id has been added. <strong>Please try again!!!</strong>
+                                </div>
+                            </article>
+                        </div>
+                        <div v-if="statusErr === 2" >
+                            <article class="message is-success">
+                                <div class="message-body">
+                                    The new Spell with the name <strong>{{statusName}}</strong> , was successfully added to the DB.
                                 </div>
                             </article>
                         </div>
@@ -53,13 +60,15 @@
 
 <script>
     export default {
+        props: ['title'],
         data() {
             return {
                 name: '',
                 quote: '',
                 description: '',
                 kind_id: 0,
-                statusErr: 0
+                statusErr: 0,
+                statusName: '',
             }
         },
         methods: {
@@ -76,12 +85,15 @@
                     kind_id
                 })
                 .then(response => {
+                    this.statusErr = 2,
                     console.log(response)})
                 .catch(error => {
                     this.statusErr = 1,
                         console.log(error, error.status)
                 });
 
+                this.statusName = this.name;
+                this.statusErr = 0;
                 this.name = '';
                 this.quote = '';
                 this.description = '';

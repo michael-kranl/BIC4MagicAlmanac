@@ -3,6 +3,8 @@
 
 @section('content')
     <section class="section">
-        <show-spell-element title="Show spell"/>
+        <div class="container">
+            <show-spell-element title="Show spell"/>
+        </div>
     </section>
 @endsection

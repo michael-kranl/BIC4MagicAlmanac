@@ -2,6 +2,8 @@
 
 @section('content')
     <section class="section">
-        <edit-spell-element title="Edit spell"/>
+        <div class="container">
+            <edit-spell-element title="Edit spell"/>
+        </div>
     </section>
 @endsection

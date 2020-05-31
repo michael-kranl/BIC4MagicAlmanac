@@ -35,7 +35,15 @@
                             </div>
                             <div class="control">
                                 <input type="submit" value="Cancel" @click="cancelKind" class="button is-dark is-rounded">
-                                <input type="submit" value="OK" @click="updateKind" class="button is-success is-rounded">
+                                <input type="submit" value="Update" @click="updateKind" class="button is-success is-rounded">
+                            </div>
+                            <br>
+                            <div v-if="statusErr === 1" >
+                                <article class="message is-danger">
+                                    <div class="message-body">
+                                        This name is already assigned or/and no description has been added. <strong>Please try again!!!</strong>
+                                    </div>
+                                </article>
                             </div>
                         </div>
                     </div>
@@ -47,23 +55,28 @@
 
 <script>
     export default {
+        props: ['title'],
         data() {
             return {
                 kind: null,
+                statusErr: 0,
             }
         },
         methods : {
             updateKind(){
                 let name = this.kind.name;
                 let description = this.kind.description;
-                axios.put(`/kind/${this.kind.slug}`, {
+                axios.put('/kind/' +this.kind.slug, {
                     name,
                     description
                 })
                 .then(response => {
                     window.location.href = '/kind/'})
                 .catch(error => {
+                    this.statusErr = 1;
                     console.log(error, error.status)});
+
+                this.statusErr = 0;
             },
             cancelKind(){
                 window.location.href = '/kind/';

@@ -3,6 +3,8 @@
 
 @section('content')
     <section class="section">
-        <edit-kind-element title="Edit kind"/>
+        <div class="container">
+            <edit-kind-element title="Edit kind"/>
+        </div>
     </section>
 @endsection

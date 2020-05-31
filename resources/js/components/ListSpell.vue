@@ -9,7 +9,6 @@
                 </header>
                 <div class="card-content">
                     <div class="content">
-
                         <table class="table is-hoverable">
                             <thead>
                             <tr>
@@ -39,6 +38,7 @@
 
 <script>
     export default {
+        props: ['title'],
         data() {
             return {
                 spells: []
@@ -51,10 +51,10 @@
         },
         created() {
             axios.get('/list/spell')
-                .then(response => {
-                    this.spells = response.data})
-                .catch(error =>
-                {console.log(error.data, error.status)});
+            .then(response => {
+                this.spells = response.data})
+            .catch(error =>
+            {console.log(error.data, error.status)});
         }
     }
 </script>

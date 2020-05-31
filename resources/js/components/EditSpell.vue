@@ -47,7 +47,15 @@
                             </div>
                             <div class="control">
                                 <input type="submit" value="Cancel" @click="cancelSpell" class="button is-dark is-rounded">
-                                <input type="submit" value="OK" @click="updateSpell" class="button is-success is-rounded">
+                                <input type="submit" value="Update" @click="updateSpell" class="button is-success is-rounded">
+                            </div>
+                            <br>
+                            <div v-if="statusErr === 1" >
+                                <article class="message is-danger">
+                                    <div class="message-body">
+                                        This name is already assigned or/and no quote/description/kind_id has been added. <strong>Please try again!!!</strong>
+                                    </div>
+                                </article>
                             </div>
                         </div>
                     </div>
@@ -59,9 +67,11 @@
 
 <script>
     export default {
+        props: ['title'],
         data() {
             return {
                 spell: null,
+                statusErr: 0,
             }
         },
         methods : {
@@ -71,16 +81,19 @@
                 let description = this.spell.description;
                 let kind_id = this.spell.kind_id;
 
-                axios.put(`http://127.0.0.1:8000/spell/${this.spell.slug}`, {
+                axios.put('/spell/' + this.spell.slug, {
                     name,
                     quote,
                     description,
                     kind_id
                 })
-                    .then(response => {
-                        window.location.href = '/spell/'})
-                    .catch(error => {
-                        console.log(error, error.status)});
+                .then(response => {
+                    window.location.href = '/spell/'})
+                .catch(error => {
+                    this.statusErr = 1,
+                    console.log(error, error.status)});
+
+                this.statusErr = 0;
             },
             cancelSpell(){
                 window.location.href = '/spell/';

@@ -32,6 +32,13 @@
                                 </div>
                             </article>
                         </div>
+                        <div v-if="statusErr === 2" >
+                            <article class="message is-success">
+                                <div class="message-body">
+                                    The new kins with the name <strong>{{statusName}}</strong> , was successfully added to the DB.
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,11 +48,13 @@
 
 <script>
     export default {
+        props: ['title'],
         data() {
             return {
                 name: '',
                 description: '',
-                statusErr: 0
+                statusErr: 0,
+                statusName: '',
             }
         },
         methods: {
@@ -58,14 +67,14 @@
                     description
                 })
                 .then(response => {
+                    this.statusErr = 2,
                     console.log(response)})
                 .catch(error => {
                     this.statusErr = 1,
                     console.log(error, error.status)
                 });
-
+                this.statusName = this.name;
                 this.statusErr = 0;
-
                 this.name = '';
                 this.description = '';
             }

@@ -3,6 +3,8 @@
 
 @section('content')
     <section class="section">
-        <list-spell-element title="List spell"/>
+        <div class="container">
+            <list-spell-element title="List spell"/>
+        </div>
     </section>
 @endsection

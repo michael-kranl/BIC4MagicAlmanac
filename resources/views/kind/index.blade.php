@@ -3,6 +3,8 @@
 
 @section('content')
     <section class="section">
-        <list-kind-element title="List kind"/>
+        <div class="container">
+            <list-kind-element title="List kind"/>
+        </div>
     </section>
 @endsection
