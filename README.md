@@ -15,7 +15,8 @@ All routes that are needed are implemented:
  * **GET** ```/list/kind``` &rarr; Returns JSON of all kinds
  * **POST** ```/spell``` &rarr; Stores new spells
  * **GET** ```/spell/{slug}``` &rarr; Show spell
- * **PUT** ```/spell/{slug}``` &rarr; Update invention
+ * **PUT** ```/spell/{slug}``` &rarr; Update spell
+ * **DELETE** ```/spell/{slug}``` &rarr; Delete spell
  * **GET** ```/spell/{slug}/edit``` &rarr; Edit spell
  * **GET** ```/search/spell``` &rarr; Search spells
  * **POST** ```/search/spell``` &rarr; Query spells
@@ -24,6 +25,7 @@ All routes that are needed are implemented:
  * **POST** ```/kind``` &rarr; Stores new kinds
  * **GET** ```/kind/{slug}``` &rarr; Show kind
  * **PUT** ```/kind/{slug}``` &rarr; Update kind
+ * **DELETE** ```/kind/{slug}``` &rarr; Delete kind
  * **GET** ```/kind/{slug}/edit``` &rarr; Edit kind
 
 All views can be found in ```/resources/views```.
