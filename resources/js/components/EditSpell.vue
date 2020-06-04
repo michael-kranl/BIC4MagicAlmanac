@@ -47,7 +47,7 @@
                             </div>
                             <div class="control">
                                 <input type="submit" value="Cancel" @click="cancelSpell" class="button is-dark is-rounded">
-                                <input type="submit" value="Update" @click="updateSpell" class="button is-success is-rounded">
+                                <input type="submit" value="Update" @click="updateSpell(form.spell)" class="button is-success is-rounded">
                             </div>
                             <br>
                             <div v-if="form.statusErr === 1" >
@@ -79,13 +79,13 @@
             }
         },
         methods : {
-            updateSpell(){
-                let name = this.form.spell.name;
-                let quote = this.form.spell.quote;
-                let description = this.form.spell.description;
-                let kind_id = this.form.spell.kind_id;
+            updateSpell(spell){
+                let name = spell.name;
+                let quote = spell.quote;
+                let description = spell.description;
+                let kind_id = spell.kind_id;
 
-                axios.put('/spell/' + this.form.spell.slug, {
+                axios.put('/spell/' + spell.slug, {
                     name,
                     quote,
                     description,

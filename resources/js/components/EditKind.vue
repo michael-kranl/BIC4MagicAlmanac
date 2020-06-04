@@ -35,7 +35,7 @@
                             </div>
                             <div class="control">
                                 <input type="submit" value="Cancel" @click="cancelKind" class="button is-dark is-rounded">
-                                <input type="submit" value="Update" @click="updateKind" class="button is-success is-rounded">
+                                <input type="submit" value="Update" @click="updateKind(form.kind)" class="button is-success is-rounded">
                             </div>
                             <br>
                             <div v-if="form.statusErr === 1" >
@@ -67,10 +67,10 @@
             }
         },
         methods : {
-            updateKind(){
-                let name = this.form.kind.name;
-                let description = this.form.kind.description;
-                axios.put('/kind/' +this.form.kind.slug, {
+            updateKind(kind){
+                let name = kind.name;
+                let description = kind.description;
+                axios.put('/kind/' + kind.slug, {
                     name,
                     description
                 })
