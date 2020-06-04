@@ -72,15 +72,16 @@
                 })
                 .then(response => {
                     this.form.statusErr = 2,
+                    this.form.statusName = this.form.name,
+                    this.form.name = '',
+                    this.form.description = '',
                     console.log(response)})
                 .catch(error => {
                     this.form.statusErr = 1,
                     console.log(error, error.status)
                 });
-                this.form.statusName = this.form.name;
+
                 this.form.statusErr = 0;
-                this.form.name = '';
-                this.form.description = '';
             }
         }
     }

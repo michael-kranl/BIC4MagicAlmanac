@@ -65,10 +65,10 @@
         methods: {
             search() {
                 axios.post('/search/spell?q='+this.inputSearch)
-                .then(response => {
-                    this.form.spells = response.data})
-                .catch(error => {
-                    console.log(error, error.status)});
+                    .then(response => {
+                        this.form.spells = response.data})
+                    .catch(error => {
+                        console.log(error, error.status)});
             },
             showSpell(spell){
                 window.location.href = '/spell/' + spell.slug;

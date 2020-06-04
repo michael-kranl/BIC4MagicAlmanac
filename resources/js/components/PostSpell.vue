@@ -90,18 +90,17 @@
                 })
                 .then(response => {
                     this.form.statusErr = 2,
+                    this.form.statusName = this.form.name,
+                    this.form.name = '',
+                    this.form.quote = '',
+                    this.form.description = '',
+                    this.form.kind_id = 0,
                     console.log(response)})
                 .catch(error => {
                     this.form.statusErr = 1,
                         console.log(error, error.status)
                 });
-
-                this.form.statusName = this.form.name;
                 this.form.statusErr = 0;
-                this.form.name = '';
-                this.form.quote = '';
-                this.form.description = '';
-                this.form.kind_id = 0;
             }
         }
     }

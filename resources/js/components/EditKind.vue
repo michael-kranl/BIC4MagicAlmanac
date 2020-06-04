@@ -91,15 +91,15 @@
             let kindElement = urlElement[2];
 
             axios.get('/list/kind')
-            .then(response => {
-                for (let idx = 0; idx < response.data.length; idx++) {
-                    if (kindElement == response.data[idx].slug){
-                        this.form.kind = response.data[idx];
+                .then(response => {
+                    for (let idx = 0; idx < response.data.length; idx++) {
+                        if (kindElement == response.data[idx].slug){
+                            this.form.kind = response.data[idx];
+                        }
                     }
-                }
-            })
-            .catch(error => {
-                console.log(error, error.status)});
+                })
+                .catch(error => {
+                    console.log(error, error.status)});
         }
     }
 </script>

@@ -51,10 +51,10 @@
         },
         created() {
             axios.get('/list/kind')
-            .then(response => {
-                this.form.kinds = response.data})
-            .catch(error =>
-                {console.log(error.data, error.status)});
+                .then(response => {
+                    this.form.kinds = response.data})
+                .catch(error =>
+                    {console.log(error.data, error.status)});
         }
     }
 </script>

@@ -55,10 +55,10 @@
         },
         created() {
             axios.get('/list/spell')
-            .then(response => {
-                this.form.spells = response.data})
-            .catch(error =>
-            {console.log(error.data, error.status)});
+                .then(response => {
+                    this.form.spells = response.data})
+                .catch(error =>
+                {console.log(error.data, error.status)});
         }
     }
 </script>
