@@ -28,10 +28,6 @@
                             </div>
                         </div>
                         <div class="field">
-                            <!--<label class="label">Kind_ID</label>
-                            <div class="control">
-                                <input class="input" type="number" v-model="form.kind_id">
-                            </div>-->
                             <label class="label">Spell Kind</label>
                             <div class="select">
                                 <select v-model="form.kind_id" class="form-control">
