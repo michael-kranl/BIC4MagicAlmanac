@@ -59,14 +59,14 @@
                 .then(response => {
                     this.form.spells = response.data})
                 .catch(error =>
-                {console.log(error.data, error.status)});
+                    {console.log(error.data, error.status)});
+
             axios.get('/list/kind')
                 .then(response => {
-                    //for (let idx = 0; idx < response.data.length; idx++) {
-                        //this.form.kinds[response.data[idx].id] = response.data[idx];
-                        this.form.kinds = response.data
-                    //}
+                    this.form.kinds = response.data
                 })
+                .catch(error =>
+                    {console.log(error.data, error.status)});
         }
     }
 </script>

@@ -37,7 +37,6 @@
                             <div class="field">
                                 <label class="label">Spell kind</label>
                                 <div class="control">
-                                    <!--<input class="input" type="number" v-model="form.spell.kind_id" disabled>-->
                                     <input class="input" type="text" v-model="form.kind.name" disabled>
                                 </div>
                             </div>
@@ -113,9 +112,6 @@
 
             axios.get('/list/kind')
                 .then(response => {
-                    /*let idx = 0;
-                    for(; (response.data[idx].id != kind_id) && (idx < response.data.length); idx++);
-                    this.form.kind = response[idx];*/
                     for (let idx = 0; idx < response.data.length; idx++) {
                         if (kind_id == response.data[idx].id){
                             this.form.kind = response.data[idx];
