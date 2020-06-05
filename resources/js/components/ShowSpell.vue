@@ -37,7 +37,7 @@
                             <div class="field">
                                 <label class="label">Spell kind</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="form.kind.name" disabled>
+                                    <input class="input" type="text" v-model="form.spell.kind.name" disabled>
                                 </div>
                             </div>
                             <div class="field">
@@ -62,7 +62,6 @@
 
 <script>
     let form = new Form({
-        'kind': null,
         'spell': null,
     });
 
@@ -103,18 +102,6 @@
                         if (spellElement == response.data[idx].slug){
                             this.form.spell = response.data[idx];
                             kind_id = response.data[idx].kind_id;
-                            break;
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.log(error, error.status)});
-
-            axios.get('/list/kind')
-                .then(response => {
-                    for (let idx = 0; idx < response.data.length; idx++) {
-                        if (kind_id == response.data[idx].id){
-                            this.form.kind = response.data[idx];
                             break;
                         }
                     }
