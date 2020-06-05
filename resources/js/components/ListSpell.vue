@@ -16,7 +16,7 @@
                                 <th>Name</th>
                                 <th>Quote</th>
                                 <th>Description</th>
-                                <th>Kind_ID</th>
+                                <th>Spell kind</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -25,7 +25,7 @@
                                 <td>{{spell.name}}</td>
                                 <td>{{spell.quote}}</td>
                                 <td>{{spell.description}}</td>
-                                <td>{{spell.kind_id}}</td>
+                                <td v-for="kind in form.kinds" v-if="kind.id == spell.kind_id">{{kind.name}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -38,7 +38,8 @@
 
 <script>
     let form = new Form({
-        'spells': []
+        'kinds': [],
+        'spells': [],
     });
 
     export default {
@@ -59,6 +60,13 @@
                     this.form.spells = response.data})
                 .catch(error =>
                 {console.log(error.data, error.status)});
+            axios.get('/list/kind')
+                .then(response => {
+                    //for (let idx = 0; idx < response.data.length; idx++) {
+                        //this.form.kinds[response.data[idx].id] = response.data[idx];
+                        this.form.kinds = response.data
+                    //}
+                })
         }
     }
 </script>
