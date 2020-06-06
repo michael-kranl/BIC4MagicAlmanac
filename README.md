@@ -1,3 +1,36 @@
+# BIC4MagicAlmanac
+### Authors
+- Rick Gerhardl ic18b082@technikum-wien.at
+- Andreas Hinterberger ic18b008@technikum-wien.at
+- Michael Kranl ic18b033@technikum-wien.at                   
+- Josef Ramsauer ic18b003@technikum-wien.at
+
+### Definition
+Magic Almanac is a practical porjoct of the course "Information Engineering" in 4BIC. In this course the aim was to consolidate our skills with JavaScript, espically in VueJS. In Magic Almanac our professor gave us a project where the backend was already deployed, we had to write the front-end to list, create and delete certain magic spells and their kinds. The front-end was mainly created with VueJS and Bulma, which where also the requirements in that project
+
+### Support
+Magic Almanac was tested under following browser:
+ - Google Chrome v?
+ - Mozilla Firefox v?
+ - Micrsoft Edge v?
+
+### Registration and Login
+When accessing the website a login mask get displayed. When you do not have registered yet, click on register and typ in your credentials. This credentials will be saved in your local lightDB database.
+
+--->> Foto
+
+### Options an the Webside
+
+
+
+
+
+
+
+
+## Instruction 
+This is the original instruction given from the professor:
+
 # BIC4 Project: Magic almanac
 
 ## The magic almanac
@@ -77,3 +110,5 @@ It is also possible to run ```npm run watch``` so it is not need to execute ```n
 
 To make starting developing fast there are some seeders implemented to fill all needed tables except the user table.
 To populate the database run the command ```php artisan db:seed``` in the terminal in project root folder.
+
+
