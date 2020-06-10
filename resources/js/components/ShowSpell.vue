@@ -67,7 +67,7 @@
     });
 
     export default {
-        props: ['title'],
+        props: ['title', 'showSpell'],
         data() {
             return {
                 form: form,
@@ -93,22 +93,10 @@
             }
         },
         created() {
-            let urlElement  =  window.location.pathname.split('/');
-            let spellElement = urlElement[2];
-            let kind_id = 0;
 
-            axios.get('/list/spell')
-                .then(response => {
-                    for (let idx = 0; idx < response.data.length; idx++) {
-                        if (spellElement == response.data[idx].slug){
-                            this.form.spell = response.data[idx];
-                            kind_id = response.data[idx].kind_id;
-                            break;
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.log(error, error.status)});
+            this.form.spell = this.showSpell;
+            let kind_id = 0;
+            kind_id = this.form.spell.kind_id;
 
             axios.get('/list/kind')
                 .then(response => {

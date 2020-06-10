@@ -28,3 +28,5 @@ Route::post('/search/spell', 'SpellController@query')->name('spell.query');
 Route::get('/list/kind', 'KindController@list')->name('kind.list');
 Route::get('/list/spell', 'SpellController@list')->name('spell.list');
 
+Route::get('/kind/{kind}/detail', 'KindController@detail')->name('kind.detail');
+

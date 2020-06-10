@@ -24,9 +24,9 @@ class KindController extends Controller
      */
     public function index()
     {
-        $kind = Kind::all()->load('spells');
+        $kinds = Kind::all()->load('spells');
 
-        return view('kind.index', compact('kind'));
+        return view('kind.index', compact('kinds'));
     }
 
     /**
@@ -109,5 +109,9 @@ class KindController extends Controller
     public function list()
     {
         return Kind::all()->load('spells');
+    }
+
+    public function detail(Kind $kind){
+        return $kind->load("spells");
     }
 }

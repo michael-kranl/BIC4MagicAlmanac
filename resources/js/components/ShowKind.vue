@@ -29,6 +29,27 @@
                                 </div>
                             </div>
                             <div class="field">
+                                <label class="label">Spell List</label>
+                                <table class="table is-hoverable">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Quote</th>
+                                        <th>Description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="spell in form.spells.spells" @dblclick="showSpell(spell)">
+                                        <td style="font-size: small" >{{spell.id}}</td>
+                                        <td style="font-size: small">{{spell.name}}</td>
+                                        <td style="font-size: small">{{spell.quote}}</td>
+                                        <td style="font-size: small">{{spell.description}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="field">
                                 <div class="control">
                                     <label class="label-small">Updated am {{form.kind.updated_at}}</label>
                                 </div>
@@ -50,17 +71,21 @@
 
 <script>
     let form = new Form({
-        'kind': null,
+        'kind': [],
+        'spells': [],
     });
 
     export default {
-        props: ['title'],
+        props: ['title', 'showKind'],
         data() {
             return {
                 form: form,
             }
         },
         methods : {
+            showSpell(spell){
+                window.location.href = '/spell/' + spell.slug;
+            },
             linkToEdit(){
                 window.location.href = window.location.pathname + '/edit';
             },
@@ -80,19 +105,12 @@
             }
         },
         created() {
-            let urlElement  =  window.location.pathname.split('/');
-            let kindElement = urlElement[2];
+            this.form.kind = this.showKind;
 
-            axios.get('/list/kind')
+            axios.get('/kind/'+ this.form.kind.slug + '/detail')
                 .then(response => {
-                    for (let idx = 0; idx < response.data.length; idx++) {
-                        if (kindElement == response.data[idx].slug){
-                            this.form.kind = response.data[idx];
-                        }
-                    }
+                    this.form.spells = response.data;
                 })
-                .catch(error => {
-                    console.log(error, error.status)});
         }
     }
 </script>
