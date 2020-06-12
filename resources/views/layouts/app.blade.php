@@ -143,7 +143,7 @@
 
     <footer class="footer">
         <div class="content has-text-centered">
-            <small>Here comes some footer</small>
+            <small>&copy;2020 - GerHinKraRam - FHTWBIC4_ST2020_IE - Magic Almanac</small>
         </div>
     </footer>
 </div>
