@@ -2185,7 +2185,16 @@ var form = new Form({
   'kinds': []
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title'],
+  props: {
+    allKinds: {
+      type: Array,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    }
+  },
   data: function data() {
     return {
       form: form
@@ -2197,13 +2206,12 @@ var form = new Form({
     }
   },
   created: function created() {
-    var _this = this;
-
-    axios.get('/list/kind').then(function (response) {
-      _this.form.kinds = response.data;
-    })["catch"](function (error) {
-      console.log(error.data, error.status);
-    });
+    /*axios.get('/list/kind')
+        .then(response => {
+            this.form.kinds = response.data})
+        .catch(error =>
+            {console.log(error.data, error.status)});*/
+    this.form.kinds = this.allKinds;
   }
 });
 
@@ -2259,7 +2267,16 @@ var form = new Form({
   'spells': []
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title'],
+  props: {
+    allSpells: {
+      type: Array,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    }
+  },
   data: function data() {
     return {
       form: form
@@ -2276,11 +2293,12 @@ var form = new Form({
   created: function created() {
     var _this = this;
 
-    axios.get('/list/spell').then(function (response) {
-      _this.form.spells = response.data;
-    })["catch"](function (error) {
-      console.log(error.data, error.status);
-    });
+    /*axios.get('/list/spell')
+        .then(response => {
+            this.form.spells = response.data})
+        .catch(error =>
+            {console.log(error.data, error.status)});*/
+    this.form.spells = this.allSpells;
     axios.get('/list/kind').then(function (response) {
       _this.form.kinds = response.data;
     })["catch"](function (error) {

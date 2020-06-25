@@ -4,7 +4,7 @@
 @section('content')
     <section class="section">
         <div class="container">
-            <list-spell-element title="List spell"/>
+            <list-spell-element :all-spells = "{{ $spells }}" title="List spell"/>
         </div>
     </section>
 @endsection

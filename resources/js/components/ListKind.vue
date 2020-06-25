@@ -36,7 +36,16 @@
     });
 
     export default {
-        props: ['title'],
+        props: {
+            allKinds: {
+                type: Array,
+                required: true
+            },
+            title: {
+                type: String,
+                required: true
+            },
+        },
         data() {
             return {
                 form: form,
@@ -48,11 +57,12 @@
             }
         },
         created() {
-            axios.get('/list/kind')
+            /*axios.get('/list/kind')
                 .then(response => {
                     this.form.kinds = response.data})
                 .catch(error =>
-                    {console.log(error.data, error.status)});
+                    {console.log(error.data, error.status)});*/
+            this.form.kinds = this.allKinds;
         }
     }
 </script>

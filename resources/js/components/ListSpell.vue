@@ -41,7 +41,16 @@
     });
 
     export default {
-        props: ['title'],
+        props: {
+            allSpells: {
+                type: Array,
+                required: true
+            },
+            title: {
+                type: String,
+                required: true
+            },
+        },
         data() {
             return {
                 form: form,
@@ -56,11 +65,12 @@
             }
         },
         created() {
-            axios.get('/list/spell')
+            /*axios.get('/list/spell')
                 .then(response => {
                     this.form.spells = response.data})
                 .catch(error =>
-                    {console.log(error.data, error.status)});
+                    {console.log(error.data, error.status)});*/
+            this.form.spells = this.allSpells;
 
             axios.get('/list/kind')
                 .then(response => {
