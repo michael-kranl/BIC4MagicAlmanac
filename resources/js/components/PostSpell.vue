@@ -31,7 +31,7 @@
                             <label class="label">Spell Kind</label>
                             <div class="select">
                                 <select v-model="form.kind_id" class="form-control">
-                                    <option v-for="kind in form.spellKinds" :key="kind.id" :value="kind.id">{{ kind.name }}</option>
+                                    <option v-for="(kind, index) in form.spellKinds" :key="kind.id" :value="kind.id" v-text="kind.name" />
                                 </select>
                             </div>
                         </div>
@@ -110,6 +110,8 @@
             axios.get('/list/kind')
                 .then(response => {
                     this.form.spellKinds = response.data;
+                    if(this.form.spellKinds.length > 0)
+                        form.kind_id = this.form.spellKinds[0].id;
                 })
                 .catch(error => {
                     console.log(error, error.status)});

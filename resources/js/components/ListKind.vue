@@ -12,14 +12,12 @@
                         <table class="table is-hoverable">
                             <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="kind in form.kinds " @dblclick="showKind(kind)">
-                                <td>{{kind.id}}</td>
                                 <td>{{kind.name}}</td>
                                 <td>{{kind.description}}</td>
                             </tr>

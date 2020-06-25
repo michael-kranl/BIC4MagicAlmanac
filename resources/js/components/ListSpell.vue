@@ -12,7 +12,6 @@
                         <table class="table is-hoverable">
                             <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Quote</th>
                                 <th>Description</th>
@@ -21,11 +20,10 @@
                             </thead>
                             <tbody>
                             <tr v-for="spell in form.spells " @dblclick="showSpell(spell)">
-                                <td>{{spell.id}}</td>
                                 <td>{{spell.name}}</td>
                                 <td>{{spell.quote}}</td>
                                 <td>{{spell.description}}</td>
-                                <td v-for="kind in form.kinds" v-if="kind.id == spell.kind_id">{{kind.name}}</td>
+                                <td v-for="kind in form.kinds" v-if="kind.id == spell.kind_id"><a @click="showKind(kind)">{{kind.name}}</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -52,6 +50,9 @@
         methods: {
             showSpell(spell){
                 window.location.href = '/spell/' + spell.slug;
+            },
+            showKind(kind){
+                window.location.href = '/kind/' + kind.slug;
             }
         },
         created() {

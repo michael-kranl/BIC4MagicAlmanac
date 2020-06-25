@@ -1964,11 +1964,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var form = new Form({
-  'kind': null,
+  'kind': [],
   'statusErr': ''
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title'],
+  props: ['title', 'currentKind'],
   data: function data() {
     return {
       form: form
@@ -1996,19 +1996,7 @@ var form = new Form({
     }
   },
   created: function created() {
-    var _this2 = this;
-
-    var urlElement = window.location.pathname.split('/');
-    var kindElement = urlElement[2];
-    axios.get('/list/kind').then(function (response) {
-      for (var idx = 0; idx < response.data.length; idx++) {
-        if (kindElement == response.data[idx].slug) {
-          _this2.form.kind = response.data[idx];
-        }
-      }
-    })["catch"](function (error) {
-      console.log(error, error.status);
-    });
+    this.form.kind = this.currentKind;
   }
 });
 
@@ -2152,43 +2140,6 @@ var form = new Form({
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title'],
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ListKind.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ListKind.vue?vue&type=script&lang=js& ***!
@@ -2198,8 +2149,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -2305,8 +2254,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 var form = new Form({
   'kinds': [],
   'spells': []
@@ -2321,6 +2268,9 @@ var form = new Form({
   methods: {
     showSpell: function showSpell(spell) {
       window.location.href = '/spell/' + spell.slug;
+    },
+    showKind: function showKind(kind) {
+      window.location.href = '/kind/' + kind.slug;
     }
   },
   created: function created() {
@@ -2332,9 +2282,9 @@ var form = new Form({
       console.log(error.data, error.status);
     });
     axios.get('/list/kind').then(function (response) {
-      //for (let idx = 0; idx < response.data.length; idx++) {
-      //this.form.kinds[response.data[idx].id] = response.data[idx];
-      _this.form.kinds = response.data; //}
+      _this.form.kinds = response.data;
+    })["catch"](function (error) {
+      console.log(error.data, error.status);
     });
   }
 });
@@ -2503,10 +2453,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 var form = new Form({
   'name': '',
   'quote': '',
@@ -2549,6 +2495,7 @@ var form = new Form({
 
     axios.get('/list/kind').then(function (response) {
       _this2.form.spellKinds = response.data;
+      if (_this2.form.spellKinds.length > 0) form.kind_id = _this2.form.spellKinds[0].id;
     })["catch"](function (error) {
       console.log(error, error.status);
     });
@@ -2613,6 +2560,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var form = new Form({
+  'kinds': [],
   'spells': []
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2641,6 +2589,15 @@ var form = new Form({
     showSpell: function showSpell(spell) {
       window.location.href = '/spell/' + spell.slug;
     }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    axios.get('/list/kind').then(function (response) {
+      _this2.form.kinds = response.data;
+    })["catch"](function (error) {
+      console.log(error.data, error.status);
+    });
   }
 });
 
@@ -2705,17 +2662,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var form = new Form({
-  'kind': null
+  'kind': [],
+  'spells': []
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title'],
+  props: ['title', 'showKind'],
   data: function data() {
     return {
       form: form
     };
   },
   methods: {
+    showSpell: function showSpell(spell) {
+      window.location.href = '/spell/' + spell.slug;
+    },
     linkToEdit: function linkToEdit() {
       window.location.href = window.location.pathname + '/edit';
     },
@@ -2736,16 +2718,9 @@ var form = new Form({
   created: function created() {
     var _this = this;
 
-    var urlElement = window.location.pathname.split('/');
-    var kindElement = urlElement[2];
-    axios.get('/list/kind').then(function (response) {
-      for (var idx = 0; idx < response.data.length; idx++) {
-        if (kindElement == response.data[idx].slug) {
-          _this.form.kind = response.data[idx];
-        }
-      }
-    })["catch"](function (error) {
-      console.log(error, error.status);
+    this.form.kind = this.showKind;
+    axios.get('/kind/' + this.form.kind.slug + '/detail').then(function (response) {
+      _this.form.spells = response.data;
     });
   }
 });
@@ -2823,13 +2798,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var form = new Form({
-  'kind': null,
-  'spell': null
+  'kind': [],
+  'spell': []
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title'],
+  props: ['title', 'showSpell'],
   data: function data() {
     return {
       form: form
@@ -2856,24 +2830,10 @@ var form = new Form({
   created: function created() {
     var _this = this;
 
-    var urlElement = window.location.pathname.split('/');
-    var spellElement = urlElement[2];
+    this.form.spell = this.showSpell;
     var kind_id = 0;
-    axios.get('/list/spell').then(function (response) {
-      for (var idx = 0; idx < response.data.length; idx++) {
-        if (spellElement == response.data[idx].slug) {
-          _this.form.spell = response.data[idx];
-          kind_id = response.data[idx].kind_id;
-          break;
-        }
-      }
-    })["catch"](function (error) {
-      console.log(error, error.status);
-    });
+    kind_id = this.form.spell.kind_id;
     axios.get('/list/kind').then(function (response) {
-      /*let idx = 0;
-      for(; (response.data[idx].id != kind_id) && (idx < response.data.length); idx++);
-      this.form.kind = response[idx];*/
       for (var idx = 0; idx < response.data.length; idx++) {
         if (kind_id == response.data[idx].id) {
           _this.form.kind = response.data[idx];
@@ -20964,48 +20924,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*******************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "columns is-multiline" }, [
-      _c("div", { staticClass: "card column is-half is-offset-one-quarter" }, [
-        _c("header", { staticClass: "card-header" }, [
-          _c("h1", { staticClass: "card-header-title" }, [
-            _vm._v(
-              "\n                    " +
-                _vm._s(_vm.title) +
-                "\n                "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-content" }, [
-          _c("div", { staticClass: "content" }, [_vm._t("default")], 2)
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ListKind.vue?vue&type=template&id=39b2fdbd&scoped=true&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ListKind.vue?vue&type=template&id=39b2fdbd&scoped=true& ***!
@@ -21052,8 +20970,6 @@ var render = function() {
                       }
                     },
                     [
-                      _c("td", [_vm._v(_vm._s(kind.id))]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(kind.name))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(kind.description))])
@@ -21076,8 +20992,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Description")])
@@ -21137,8 +21051,6 @@ var render = function() {
                       }
                     },
                     [
-                      _c("td", [_vm._v(_vm._s(spell.id))]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(spell.name))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(spell.quote))]),
@@ -21147,7 +21059,19 @@ var render = function() {
                       _vm._v(" "),
                       _vm._l(_vm.form.kinds, function(kind) {
                         return kind.id == spell.kind_id
-                          ? _c("td", [_vm._v(_vm._s(kind.name))])
+                          ? _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.showKind(kind)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(kind.name))]
+                              )
+                            ])
                           : _vm._e()
                       })
                     ],
@@ -21170,8 +21094,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Quote")]),
@@ -21487,12 +21409,14 @@ var render = function() {
                       }
                     }
                   },
-                  _vm._l(_vm.form.spellKinds, function(kind) {
-                    return _c(
-                      "option",
-                      { key: kind.id, domProps: { value: kind.id } },
-                      [_vm._v(_vm._s(kind.name))]
-                    )
+                  _vm._l(_vm.form.spellKinds, function(kind, index) {
+                    return _c("option", {
+                      key: kind.id,
+                      domProps: {
+                        value: kind.id,
+                        textContent: _vm._s(kind.name)
+                      }
+                    })
                   }),
                   0
                 )
@@ -21639,8 +21563,13 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(spell.description))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(spell.kind_id))])
-                          ]
+                            _vm._l(_vm.form.kinds, function(kind) {
+                              return kind.id == spell.kind_id
+                                ? _c("td", [_vm._v(_vm._s(kind.name))])
+                                : _vm._e()
+                            })
+                          ],
+                          2
                         )
                       }),
                       0
@@ -21669,7 +21598,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Kind_ID")])
+        _c("th", [_vm._v("Spell kind")])
       ])
     ])
   }
@@ -21803,6 +21732,58 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "field" }, [
+                    _c("label", { staticClass: "label" }, [
+                      _vm._v("Spell List")
+                    ]),
+                    _vm._v(" "),
+                    _c("table", { staticClass: "table is-hoverable" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.form.spells.spells, function(spell) {
+                          return _c(
+                            "tr",
+                            {
+                              on: {
+                                dblclick: function($event) {
+                                  return _vm.showSpell(spell)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "td",
+                                { staticStyle: { "font-size": "small" } },
+                                [_vm._v(_vm._s(spell.id))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticStyle: { "font-size": "small" } },
+                                [_vm._v(_vm._s(spell.name))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticStyle: { "font-size": "small" } },
+                                [_vm._v(_vm._s(spell.quote))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticStyle: { "font-size": "small" } },
+                                [_vm._v(_vm._s(spell.description))]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "field" }, [
                     _c("div", { staticClass: "control" }, [
                       _c("label", { staticClass: "label-small" }, [
                         _vm._v("Updated am " + _vm._s(_vm.form.kind.updated_at))
@@ -21843,7 +21824,24 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quote")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -34316,7 +34314,6 @@ window.Vue = vue__WEBPACK_IMPORTED_MODULE_0___default.a;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('query-message', __webpack_require__(/*! ./components/base/QueryMessage.vue */ "./resources/js/components/base/QueryMessage.vue")["default"]);
 Vue.component('edit-kind-element', __webpack_require__(/*! ./components/EditKind.vue */ "./resources/js/components/EditKind.vue")["default"]);
 Vue.component('show-kind-element', __webpack_require__(/*! ./components/ShowKind.vue */ "./resources/js/components/ShowKind.vue")["default"]);
@@ -34530,75 +34527,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSpell_vue_vue_type_template_id_2dd3b463_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSpell_vue_vue_type_template_id_2dd3b463_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ExampleComponent.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue ***!
-  \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ExampleComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
