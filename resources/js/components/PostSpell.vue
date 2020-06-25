@@ -97,7 +97,6 @@
                     this.form.name = '',
                     this.form.quote = '',
                     this.form.description = '',
-                    this.form.kind_id = 0,
                     console.log(response)})
                 .catch(error => {
                     this.form.statusErr = 1,

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="columns is-multiline">
-            <div class="card column is-half is-offset-one-quarter">
+            <div class="card column is-three-fifths is-offset-one-fifth">
                 <header class="card-header">
                     <h1 class="card-header-title">
                         {{ title }}
@@ -65,11 +65,6 @@
             }
         },
         created() {
-            /*axios.get('/list/spell')
-                .then(response => {
-                    this.form.spells = response.data})
-                .catch(error =>
-                    {console.log(error.data, error.status)});*/
             this.form.spells = this.allSpells;
 
             axios.get('/list/kind')
